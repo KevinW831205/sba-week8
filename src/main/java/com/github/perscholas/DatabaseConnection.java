@@ -16,7 +16,6 @@ public enum DatabaseConnection {
         String dbVendor = name().toLowerCase();
         String url = "jdbc:" + dbVendor + "://127.0.0.1/"+database;
         try {
-            System.out.println("url "+url   );
             return DriverManager.getConnection(url, username, password);
         } catch (SQLException e) {
             throw new Error(e);

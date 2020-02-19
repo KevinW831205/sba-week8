@@ -16,13 +16,15 @@ import java.util.List;
 public class StudentService implements StudentDao {
 
     private final DatabaseConnection dbc;
+    private final CourseService courseService;
 
-    public StudentService(DatabaseConnection dbc) {
+    public StudentService(DatabaseConnection dbc, CourseService courseService) {
         this.dbc = dbc;
+        this.courseService = courseService;
     }
 
     public StudentService() {
-        this(DatabaseConnection.MYSQL);
+        this(DatabaseConnection.MYSQL, new CourseService());
     }
 
     @Override
@@ -37,7 +39,7 @@ public class StudentService implements StudentDao {
                 StudentInterface student = new Student(studentEmail, name, password);
                 list.add(student);
             }
-        } catch(SQLException se) {
+        } catch (SQLException se) {
             throw new Error(se);
         }
 
@@ -49,9 +51,9 @@ public class StudentService implements StudentDao {
         List<StudentInterface> students = getAllStudents();
 
         return students.stream()
-                .filter(s->s.getEmail().equals(studentEmail))
+                .filter(s -> s.getEmail().equals(studentEmail))
                 .findFirst()
-                .orElseGet(()->null);
+                .orElseGet(() -> null);
     }
 
     @Override
@@ -62,11 +64,19 @@ public class StudentService implements StudentDao {
 
     @Override
     public void registerStudentToCourse(String studentEmail, int courseId) {
-
+        System.out.println(courseService.getAllCourses());
+        System.out.println("course got: "+ getStudentCourses(studentEmail).add(courseService.getAllCourses()
+                .stream()
+                .filter(c -> c.getId() == courseId)
+                .findFirst()
+                .orElse(null))
+        );
     }
 
     @Override
     public List<CourseInterface> getStudentCourses(String studentEmail) {
-        return null;
+        System.out.println("get courses of student "+studentEmail);
+        System.out.println(getStudentByEmail(studentEmail));
+        return getStudentByEmail(studentEmail).getCourses();
     }
 }

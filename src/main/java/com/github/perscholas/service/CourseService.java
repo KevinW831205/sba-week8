@@ -43,6 +43,6 @@ public class CourseService implements CourseDao {
         }
 
 
-        return null;
+        return courseList;
     }
 }
