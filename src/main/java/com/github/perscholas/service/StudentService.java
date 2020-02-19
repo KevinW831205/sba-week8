@@ -46,12 +46,17 @@ public class StudentService implements StudentDao {
 
     @Override
     public StudentInterface getStudentByEmail(String studentEmail) {
-        return null;
+        List<StudentInterface> students = getAllStudents();
+
+        return students.stream()
+                .filter(s->s.getEmail().equals(studentEmail))
+                .findFirst()
+                .orElseGet(()->null);
     }
 
     @Override
     public Boolean validateStudent(String studentEmail, String password) {
-        return null;
+
     }
 
     @Override
