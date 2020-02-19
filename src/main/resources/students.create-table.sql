@@ -1,0 +1,7 @@
+DROP TABLE if EXISTS students;
+CREATE TABLE students(
+	email VARCHAR(50) NOT NULL UNIQUE,
+	name VARCHAR(50) NOT NULL,
+	password VARCHAR(50) NOT NULL,
+	PRIMARY KEY (email)
+);
