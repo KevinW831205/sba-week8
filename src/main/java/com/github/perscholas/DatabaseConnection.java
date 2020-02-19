@@ -25,7 +25,6 @@ public enum DatabaseConnection {
     public void executeStatement(String sqlStatement) {
         try {
             Statement statement = getScrollableStatement();
-            System.out.println(sqlStatement);
             statement.executeUpdate(sqlStatement);
         } catch (SQLException e) {
             throw new Error(e);
@@ -53,7 +52,6 @@ public enum DatabaseConnection {
     }
 
     public void setDatabase(String database) {
-        System.out.println("set database "+database);
         this.database = database;
     }
 }

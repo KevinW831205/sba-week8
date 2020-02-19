@@ -16,8 +16,17 @@ public class JdbcConfigurator {
         useDatabase();
         createStudentTable();
         createCourseTable();
+        createStudentCourse();
         populateStudentTable();
         populateCourseTable();
+    }
+
+    private static void createStudentCourse() {
+        DatabaseConnection.MYSQL.executeStatement("DROP TABLE if EXISTS studentcourse;");
+        File creationStatementFile = DirectoryReference.RESOURCE_DIRECTORY.getFileFromDirectory("studentcourses.create-table.sql");
+        FileReader fileReader = new FileReader(creationStatementFile.getAbsolutePath());
+        String creationStatement = fileReader.toString();
+        DatabaseConnection.MYSQL.executeStatement(creationStatement);
     }
 
     private static void populateStudentTable() {
