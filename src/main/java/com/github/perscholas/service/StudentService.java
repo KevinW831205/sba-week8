@@ -56,7 +56,8 @@ public class StudentService implements StudentDao {
 
     @Override
     public Boolean validateStudent(String studentEmail, String password) {
-
+        StudentInterface student = getStudentByEmail(studentEmail);
+        return student.getPassword().equals(password);
     }
 
     @Override
