@@ -1,7 +1,6 @@
-DROP TABLE if EXISTS courses;
-CREATE TABLE courses(
-	id INT NOT NULL AUTO_INCREMENT,
-	name VARCHAR(50) NOT NULL,
-	instructor VARCHAR(50) NOT NULL,
+CREATE TABLE course(
+	id INTEGER not NULL AUTO_INCREMENT,
+	name VARCHAR(50) not NULL,
+	instructor VARCHAR(50) not NULL,
 	PRIMARY KEY (id)
 );

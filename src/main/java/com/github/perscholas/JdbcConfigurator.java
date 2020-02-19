@@ -7,6 +7,7 @@ import com.mysql.cj.jdbc.Driver;
 import java.io.File;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Arrays;
 
 public class JdbcConfigurator {
     public static void initialize() {
@@ -15,6 +16,25 @@ public class JdbcConfigurator {
         useDatabase();
         createStudentTable();
         createCourseTable();
+        populateStudentTable();
+        populateCourseTable();
+    }
+
+    private static void populateStudentTable() {
+        File creationStatementFile = DirectoryReference.RESOURCE_DIRECTORY.getFileFromDirectory("students.populate-table.sql");
+        FileReader fileReader = new FileReader(creationStatementFile.getAbsolutePath());
+        String[] seeds = fileReader.toString().split(";");
+        Arrays.stream(seeds).forEach(DatabaseConnection.MYSQL::executeStatement);
+//        DatabaseConnection.MYSQL.executeStatement(creationStatement);
+    }
+
+    private static void populateCourseTable() {
+        File creationStatementFile = DirectoryReference.RESOURCE_DIRECTORY.getFileFromDirectory("courses.populate-table.sql");
+        FileReader fileReader = new FileReader(creationStatementFile.getAbsolutePath());
+        String[] seeds = fileReader.toString().split(";");
+        Arrays.stream(seeds).forEach(DatabaseConnection.MYSQL::executeStatement);
+
+//        DatabaseConnection.MYSQL.executeStatement(creationStatement);
     }
 
     private static void registerJdbcDriver() {
@@ -32,10 +52,11 @@ public class JdbcConfigurator {
     }
 
     private static void useDatabase() {
-        DatabaseConnection.MYSQL.executeStatement("USE management_system;");
+        DatabaseConnection.MYSQL.setDatabase("management_system");
     }
 
     private static void createStudentTable() {
+        DatabaseConnection.MYSQL.executeStatement("DROP TABLE if EXISTS student;");
         File creationStatementFile = DirectoryReference.RESOURCE_DIRECTORY.getFileFromDirectory("students.create-table.sql");
         FileReader fileReader = new FileReader(creationStatementFile.getAbsolutePath());
         String creationStatement = fileReader.toString();
@@ -43,6 +64,7 @@ public class JdbcConfigurator {
     }
 
     private static void createCourseTable() {
+        DatabaseConnection.MYSQL.executeStatement("DROP TABLE if EXISTS course;");
         File creationStatementFile = DirectoryReference.RESOURCE_DIRECTORY.getFileFromDirectory("courses.create-table.sql");
         FileReader fileReader = new FileReader(creationStatementFile.getAbsolutePath());
         String creationStatement = fileReader.toString();
