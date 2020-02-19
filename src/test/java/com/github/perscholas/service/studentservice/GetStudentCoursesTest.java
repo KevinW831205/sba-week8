@@ -41,7 +41,7 @@ public class GetStudentCoursesTest {
 
         // when
         // TODO - define `when` clause
-        StudentInterface student = studentService.getStudentByEmail("asdf1234");
+        StudentInterface student = studentService.getStudentByEmail("asdf");
         List<CourseInterface> actualCourses = student.getCourses();
 
 

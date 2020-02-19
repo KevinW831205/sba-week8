@@ -1,5 +1,6 @@
 package com.github.perscholas.service.studentservice;
 
+import com.github.perscholas.JdbcConfigurator;
 import com.github.perscholas.service.StudentService;
 import com.github.perscholas.utils.DirectoryReference;
 import org.junit.Assert;
@@ -30,8 +31,9 @@ public class ValidateStudentTest {
 
     @Test
     public void validate(){
+        JdbcConfigurator.initialize();
         StudentService studentService = new StudentService();
-        Assert.assertTrue(studentService.validateStudent("asdf1234","asdf"));
+        Assert.assertTrue(studentService.validateStudent("asdf","asdf"));
     }
 
 }

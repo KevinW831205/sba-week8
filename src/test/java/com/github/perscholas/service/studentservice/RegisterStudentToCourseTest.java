@@ -38,12 +38,12 @@ public class RegisterStudentToCourseTest {
     public void test() {
         JdbcConfigurator.initialize();
         StudentService studentService = new StudentService();
-        StudentInterface student = studentService.getStudentByEmail("asdf1234");
 
 
         // when
         // TODO - define `when` clause
-        studentService.registerStudentToCourse("asdf1234",1);
+        studentService.registerStudentToCourse("asdf",1);
+        StudentInterface student = studentService.getStudentByEmail("asdf");
         List<CourseInterface> actualCourses = student.getCourses();
 
 

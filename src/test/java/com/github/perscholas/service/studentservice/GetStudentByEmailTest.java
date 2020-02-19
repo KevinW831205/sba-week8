@@ -40,7 +40,7 @@ public class GetStudentByEmailTest {
 
         // when
         // TODO - define `when` clause
-        StudentInterface student = studentService.getStudentByEmail("asdf1234");
+        StudentInterface student = studentService.getStudentByEmail("asdf");
 
 
         // then
